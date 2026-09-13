@@ -1,0 +1,17 @@
+<div class="k--avatar-group -space-x-3">
+    {{#foreach authors}}
+        <div class="k--avatar {{#unless profile_image}}k--avatar-placeholder{{/unless}}">
+            <div class="w-11 h-11 rounded-full {{#if profile_image}}bg-base-200{{else}}bg-neutral text-neutral-content{{/if}}">
+                {{#if profile_image}}
+                    <img src="{{profile_image}}" alt="{{name}}">
+                {{else}}
+                    <span class="text-xl font-semibold">
+                        {{#foreach (split name separator="")}}
+                            {{#if @first}}{{this}}{{/if}}
+                        {{/foreach}}
+                    </span>
+                {{/if}}
+            </div>
+        </div>
+    {{/foreach}}
+</div>

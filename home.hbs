@@ -1,0 +1,11 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file into the body of the default.hbs template --}}
+
+{{> "components/home-hero" headerStyle=@custom.header_style}}
+
+<main class="gh-main">
+    {{> "components/home-featured" showFeatured=@custom.show_featured_posts limit=3}}
+    {{> "components/post-list" feed="home" postFeedStyle=@custom.post_feed_style showTitle=true}}
+</main>
+
+{{> "components/cta" showCTA=@custom.show_call_to_action}}

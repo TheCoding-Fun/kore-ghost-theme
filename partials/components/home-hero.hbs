@@ -1,0 +1,33 @@
+{{#match headerStyle "!=" "Off"}}
+    <section
+        class="gh-hero k--hero min-h-125{{#unless @site.cover_image}} bg-base-100{{/unless}}"
+        style="{{#if @site.cover_image}}background-image: url({{@site.cover_image}});{{/if}}"
+    >
+        {{#if @site.cover_image}}<div class="k--hero-overlay"></div>{{/if}}
+        <div class="k--hero-content text-center{{#if @site.cover_image}} text-neutral-content{{/if}}">
+            <div class="max-w-md">
+                <h1 class="text-5xl font-bold">{{@site.title}}</h1>
+                <p class="py-6">
+                    {{#if @custom.header_text}}{{@custom.header_text}}{{else}}{{@site.description}}{{/if}}
+                </p>
+
+                {{#match headerStyle "Landing"}}
+                    {{#if @site.members_enabled}}
+                        {{#unless @member}}
+                            {{> "email-subscription" email_field_id="header-email"}}
+                        {{/unless}}
+                    {{/if}}
+                {{/match}}
+
+                {{#match headerStyle "Search"}}
+                    <form class="gh-form">
+                        <button class="k--btn k--btn-accent" data-ghost-search>
+                            {{> "icons/search" icon_class="in-header size-6"}}
+                            {{t "Search posts, tags and authors"}}
+                        </button>
+                    </form>
+                {{/match}}
+            </div>
+        </div>
+    </section>
+{{/match}}

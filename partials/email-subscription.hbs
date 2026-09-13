@@ -1,0 +1,13 @@
+<form class="gh-form k--rounded-field" data-members-form>
+    <fieldset class="relative">
+        <div class="k--join">
+            <input class="k--input k--input-lg k--join-item" id="{{email_field_id}}" name="email" type="email" placeholder="jamie@example.com" required data-members-email>
+            <button class="k--btn k--btn-lg k--btn-accent k--join-item" type="submit" aria-label="{{t "Subscribe"}}">
+                <span><span>{{t "Subscribe"}}</span> {{> "icons/arrow"}}</span>
+                {{> "icons/loader"}}
+                {{> "icons/checkmark"}}
+            </button>
+        </div>
+        <p class="k--label" data-members-error></p>
+    </fieldset>
+</form>

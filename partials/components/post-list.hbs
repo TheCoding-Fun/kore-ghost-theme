@@ -1,0 +1,81 @@
+{{!--
+    Parameters:
+    * feed (index, home, archive, recent)
+    * postFeedStyle (list, grid)
+    * showTitle (true, false)
+--}}
+
+<section class="gh-container gh-outer">
+    <div class="gh-container-inner gh-inner">
+
+        {{#if showTitle}}
+            <h2 class="gh-container-title">
+                {{#unless title}}{{t "Latest"}}{{else}}{{title}}{{/unless}}
+            </h2>
+        {{/if}}
+
+        <div class="gh-feed w-full grid grid-cols-12 gap-x-7 gap-y-7">
+
+            {{!-- Homepage --}}
+            {{#match feed "home"}}
+                {{#match @custom.post_feed_style "1 column"}}
+                    {{#get "posts" include="authors,tags" limit="12"}}
+                        {{#foreach posts}}
+                            {{> "post-card" sideCardCss="md:k--card-side" lazyLoad=true}}
+                        {{/foreach}}
+                    {{/get}}
+                {{/match}}
+                {{#match @custom.post_feed_style "2 columns"}}
+                    {{#get "posts" include="authors,tags" limit="12"}}
+                        {{#foreach posts}}
+                            {{> "post-card" sideCardCss="lg:k--card-side" extraCss="md:col-span-6" lazyLoad=true}}
+                        {{/foreach}}
+                    {{/get}}
+                {{/match}}
+                {{#match @custom.post_feed_style "3 columns"}}
+                    {{#get "posts" include="authors,tags" limit="12"}}
+                        {{#foreach posts}}
+                            {{> "post-card" extraCss="lg:col-span-4 md:col-span-6" lazyLoad=true}}
+                        {{/foreach}}
+                    {{/get}}
+                {{/match}}
+                {{#match @custom.post_feed_style "4 columns"}}
+                    {{#get "posts" include="authors,tags" limit="12"}}
+                        {{#foreach posts}}
+                            {{> "post-card" sizeCss="max-xl:k--card-lg k--card-md" extraCss="xl:col-span-3 lg:col-span-4 md:col-span-6" lazyLoad=true}}
+                        {{/foreach}}
+                    {{/get}}
+                {{/match}}
+            {{/match}}
+
+            {{!-- All posts --}}
+            {{#match feed "index"}}
+                {{#match pagination.page 2}}
+                    {{#get "posts" include="authors,tags" limit=@config.posts_per_page as |recent|}}
+                        {{#foreach recent}}
+                            {{> "post-card" sizeCss="max-xl:k--card-lg k--card-md" extraCss="xl:col-span-3 lg:col-span-4 md:col-span-6" lazyLoad=true}}
+                        {{/foreach}}
+                    {{/get}}
+                {{/match}}
+                {{#foreach posts}}
+                    {{> "post-card" sizeCss="max-xl:k--card-lg k--card-md" extraCss="xl:col-span-3 lg:col-span-4 md:col-span-6" lazyLoad=true}}
+                {{/foreach}}
+            {{/match}}
+
+            {{!-- Tag and author pages --}}
+            {{#match feed "archive"}}
+                {{#foreach posts}}
+                    {{> "post-card" sizeCss="max-xl:k--card-lg k--card-md" extraCss="xl:col-span-3 lg:col-span-4 md:col-span-6" lazyLoad=true}}
+                {{/foreach}}
+            {{/match}}
+
+        </div>
+
+        {{#match pagination.pages ">" 1}}
+            <div class="gh-more is-title">
+                <a href="{{@site.url}}/page/2">{{t "See all"}} {{> "icons/arrow"}}</a>
+            </div>
+        {{/match}}
+
+    </div>
+</section>

@@ -1,0 +1,50 @@
+<div class="k--divider h-0 mb-0 mt-15"></div>
+<section class="gh-footer gh-outer w-full {{#match @custom.footer_background "bg-base-100"}}bg-base-100{{else match @custom.footer_background "bg-base-200"}}bg-base-200{{else}}bg-base-300{{/match}}">
+  <footer class="k--footer sm:k--footer-horizontal gh-inner text-base-content mx-auto pt-10">
+    <aside>
+      {{#if @site.logo}}
+          <img class="h-10" src="{{@site.logo}}" alt="{{@site.title}}">
+      {{else}}
+          <h6 class="k--footer-title">{{@site.title}}</h6>
+      {{/if}}
+      {{@site.description}}
+
+      {{> "components/footer-site-social"}}
+
+    </aside>
+
+    <nav>
+      <h6 class="k--footer-title">{{t "Explore"}}</h6>
+      {{navigation variant="links"}}
+    </nav>
+
+    {{#if @site.secondary_navigation}}
+      <nav>
+        <h6 class="k--footer-title">{{t "See also"}}</h6>
+        {{navigation type="secondary"}}
+      </nav>
+    {{/if}}
+  
+    {{#if @site.recommendations_enabled}}
+      <nav>
+        <h6 class="k--footer-title">{{t "Recommendations"}}</h6>
+        {{recommendations limit="5"}}
+        <button class="k--btn k--btn-xs k--btn-ghost" data-portal="recommendations">
+          {{t "See all"}} {{> "icons/arrow" icon_class="size-3"}}
+        </button>
+      </nav>
+    {{/if}}
+  </footer>
+  <footer class="k--footer sm:k--footer-horizontal gh-inner text-base-content mx-auto py-8">
+    <div class="grid-flow-col items-center">
+      <p>© <span class="gh-year"></span> - {{@site.title}} - {{t "All rights reserved"}}</p>
+    </div>
+    <div class="grid-flow-col gap-4 place-self-center justify-self-end">
+      <button class="k--btn k--btn-ghost k--btn-xs gh-scroll-top">
+          <svg class="size-3" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12.9999 7.82843V20H10.9999V7.82843L5.63589 13.1924L4.22168 11.7782L11.9999 4L19.778 11.7782L18.3638 13.1924L12.9999 7.82843Z"></path>
+          </svg> {{t "Back to top"}}
+      </button>
+    </div>
+  </footer>
+</section>

@@ -1,0 +1,281 @@
+{
+    "name": "kore-ghost-theme",
+    "description": "Kore - a configurable Daisy UI/Tailwind theme for the Ghost publishing platform",
+    "version": "1.0.0",
+    "engines": {
+        "ghost": ">=5.0.0"
+    },
+    "license": "MIT",
+    "scripts": {
+        "dev": "gulp",
+        "zip": "gulp zip",
+        "build": "gulp build",
+        "test": "gscan .",
+        "test:detail": "gscan --fatal --verbose ."
+    },
+    "author": {
+        "name": "TheCodingFun",
+        "email": "contact@thecoding.fun",
+        "url": "https://thecoding.fun"
+    },
+    "gpm": {
+        "type": "theme",
+        "categories": [
+            "Minimal",
+            "Blog"
+        ]
+    },
+    "keywords": [
+        "ghost",
+        "theme",
+        "ghost-theme",
+        "kore-ghost-theme"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/TheCoding-Fun/kore-ghost-theme.git"
+    },
+    "devDependencies": {
+        "@tailwindcss/postcss": "4.3.2",
+        "autoprefixer": "10.4.7",
+        "beeper": "2.1.0",
+        "daisyui": "5.7.22",
+        "gscan": "6.6.1",
+        "gulp": "4.0.2",
+        "gulp-concat": "2.6.1",
+        "gulp-livereload": "4.0.2",
+        "gulp-postcss": "10.0.0",
+        "gulp-uglify": "3.0.2",
+        "gulp-zip": "5.1.0",
+        "postcss": "8.5.3",
+        "postcss-easy-import": "4.0.0",
+        "pump": "3.0.0",
+        "tailwindcss": "4.3.2"
+    },
+    "browserslist": [
+        "defaults"
+    ],
+    "config": {
+        "posts_per_page": 12,
+        "image_sizes": {
+            "xs": {
+                "width": 160
+            },
+            "s": {
+                "width": 320
+            },
+            "m": {
+                "width": 600
+            },
+            "l": {
+                "width": 960
+            },
+            "xl": {
+                "width": 1200
+            },
+            "xxl": {
+                "width": 2000
+            }
+        },
+        "card_assets": true,
+        "custom": {
+            "dark_mode_logo": {
+                "type": "image",
+                "description": "Logo which looks good in dark theme, defaults to website logo if not set"
+            },
+            "light_theme": {
+                "type": "select",
+                "options": [
+                    "light",
+                    "cupcake",
+                    "bumblebee",
+                    "emerald",
+                    "corporate",
+                    "retro",
+                    "cyberpunk",
+                    "valentine",
+                    "garden",
+                    "lofi",
+                    "pastel",
+                    "fantasy",
+                    "wireframe",
+                    "cmyk",
+                    "autumn",
+                    "acid",
+                    "lemonade",
+                    "winter",
+                    "nord",
+                    "caramellatte",
+                    "silk"
+                ],
+                "default": "light",
+                "description": "Default light theme"
+            },
+            "dark_theme": {
+                "type": "select",
+                "options": [
+                    "dark",
+                    "synthwave",
+                    "halloween",
+                    "forest",
+                    "aqua",
+                    "black",
+                    "luxury",
+                    "dracula",
+                    "business",
+                    "night",
+                    "coffee",
+                    "dim",
+                    "sunset",
+                    "abyss",
+                    "denim"
+                ],
+                "default": "dark",
+                "description": "Default dark theme"
+            },
+            "theme_choice": {
+                "type": "select",
+                "options": [
+                    "Only light theme",
+                    "Only dark theme",
+                    "Default light with switch",
+                    "Default dark with switch"
+                ],
+                "default": "Default light with switch",
+                "description": "Choose one of the themes or a theme toggle"
+            },
+            "sticky_navigation": {
+                "type": "boolean",
+                "default": true,
+                "description": "Keep the top bar stuck to the top of the page"
+            },
+            "navigation_layout": {
+                "type": "select",
+                "options": [
+                    "Logo in the middle",
+                    "Logo on the left"
+                ],
+                "default": "Logo on the left"
+            },
+            "navigation_background": {
+                "type": "select",
+                "options": [
+                    "bg-base-100",
+                    "bg-base-200",
+                    "bg-base-300"
+                ],
+                "default": "bg-base-100",
+                "description": "Choose one of Daisy UI base colors. Website background color is bg-base-100"
+            },
+            "footer_background": {
+                "type": "select",
+                "options": [
+                    "bg-base-100",
+                    "bg-base-200",
+                    "bg-base-300"
+                ],
+                "default": "bg-base-200",
+                "description": "Choose one of Daisy UI base colors. Website background color is bg-base-100"  
+            },
+            "header_style": {
+                "type": "select",
+                "options": [
+                    "Landing",
+                    "Search",
+                    "Off"
+                ],
+                "description": "Landing will display website picture in the background",
+                "default": "Landing",
+                "group": "homepage"
+            },
+            "header_text": {
+                "type": "text",
+                "group": "homepage",
+                "description": "Defaults to site description when empty",
+                "visibility": "header_style:[Landing, Search]"
+            },
+            "show_featured_posts": {
+                "type": "select",
+                "options": [
+                    "Off",
+                    "Grid",
+                    "Carousel"
+                ],
+                "default": "Grid",
+                "group": "homepage"
+            },
+            "post_feed_style": {
+                "type": "select",
+                "options": [
+                    "1 column",
+                    "2 columns",
+                    "3 columns",
+                    "4 columns"
+                ],
+                "default": "3 columns",
+                "group": "homepage",
+                "description": "All layouts are responsive."
+            },
+            "post_image_style": {
+                "type": "select",
+                "options": [
+                    "Off",
+                    "Display image"
+                ],
+                "default": "Display image",
+                "group": "homepage",
+                "description": "Option 'Display image' shows image differently depending on feed style and screen size"
+            },
+            "post_metadata": {
+                "type": "select",
+                "options": [
+                    "Off",
+                    "Show all",
+                    "Show author",
+                    "Show publish date",
+                    "Show publish date, reading time",
+                    "Show author, publish date",
+                    "Show author, reading time"
+                ],
+                "default": "Show all",
+                "group": "homepage",
+                "description": "'Show all' means: show author, publish date, reading time."
+            },
+            "show_call_to_action": {
+                "type": "boolean",
+                "default": true,
+                "group": "homepage"
+            },
+            "call_to_action_text": {
+                "type": "text",
+                "group": "homepage",
+                "default": "Don't miss anything. Get all the latest posts delivered straight to your inbox. It's free!",
+                "description": "Used in your call to action in home page, defaults to site description when empty",
+                "visibility": "show_call_to_action:true"
+            },
+            "post_content_width": {
+                "type": "select",
+                "options": [
+                    "720px",
+                    "960px",
+                    "1200px",
+                    "1320px"
+                ],
+                "default": "720px",
+                "group": "post",
+                "description": "The width of post content"
+            },
+            "show_read_progress": {
+                "type": "boolean",
+                "default": false,
+                "group": "post"
+            },
+            "show_related_articles": {
+                "type": "boolean",
+                "default": true,
+                "group": "post",
+                "description": "If you think this theme is cool, please be so kind to drop me a coffee <3 ko-fi.com/thecodingfun"
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+{{#if showCTA}}
+    {{#if @site.members_enabled}}
+        {{#unless @member}}
+            <section class="gh-cta gh-outer w-full bg-base-300 mt-15 -mb-15">
+                <div class="gh-inner flex flex-col items-center mx-auto py-15">
+                    <h2 class="font-bold is-title">
+                        {{@site.title}}
+                    </h2>
+                    <p class="mb-10 is-body">
+                        {{#if @custom.call_to_action_text}}{{@custom.call_to_action_text}}{{else}}{{@site.description}}{{/if}}
+                    </p>
+                    {{> "email-subscription" email_field_id="cta-email"}}
+                </div>
+            </section>
+        {{/unless}}
+    {{/if}}
+{{/if}}

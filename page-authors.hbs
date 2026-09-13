@@ -1,0 +1,59 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file into the body of the default.hbs template --}}
+
+{{#post}}
+
+<main class="gh-main w-full">
+    <article class="{{post_class}}">
+
+      {{#match @page.show_title_and_feature_image}}
+        {{> "components/feature-header" title=title description=custom_excerpt}}
+      {{/match}}
+
+      <div class="gh-outer w-full -mt-40">
+        <div class="gh-inner w-full grid grid-cols-12 gap-x-7 gap-y-7">
+          {{#get 'authors' include='count.posts'}}
+            {{#foreach authors}}
+              {{#if count.posts}}
+                <div class="k--card k--image-full k--card-border border-(--color-base-300) bg-(--color-card-bg) w-full xl:col-span-4 lg:col-span-4 md:col-span-6 sm:col-span-12">
+                  {{#if cover_image}}
+                    <figure>
+                      <img
+                        src="{{img_url cover_image size="l"}}"
+                        alt="{{name}}" />
+                    </figure>
+                  {{/if}}
+                  <div class="k--card-body flex flex-col items-center text-center gap-3">
+                    <a href="{{url}}">
+                        <img
+                            src="{{img_url profile_image size="s"}}"
+                            class="mx-auto border-2 border-(--color-base-300) rounded-full size-20"
+                            loading="lazy"
+                            alt=""
+                        />
+                    </a>
+                    <h2 class="k--card-title {{#if cover_image}}mt-1{{/if}} gh-gradient-underline">
+                        <a href="{{url}}">
+                            {{name}}
+                        </a>
+                    </h2>
+                    <p class="line-clamp-3">{{bio}}</p>
+                    <div class="k--card-actions justify-center">
+                        {{plural count.posts empty=(t "No posts") singular=(t "1 post") plural=(t "% posts")}}
+                      </div>
+                  </div>
+                </div>
+              {{/if}}
+              {{else}}
+                <h2 class="col-span-12 text-center">
+                  {{t "No authors"}}
+                </h2>
+            {{/foreach}}
+          {{/get}}
+        </div>
+      </div>
+
+    </article>
+</main>
+
+{{/post}}

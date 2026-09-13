@@ -1,0 +1,20 @@
+<div class="pt-3 grid grid-flow-col gap-4">
+  {{#if @site.facebook}}
+    <a class="k--link k--link-primary" href="https://facebook.com/{{@site.facebook}}" target="_blank">
+        {{> "icons/facebook" icon_class="fill-current size-6"}}
+    </a>
+  {{/if}}
+  {{#if @site.twitter}}
+    <a class="k--link k--link-primary" href="https://x.com/{{@site.twitter}}" target="_blank">
+        {{> "icons/twitter" icon_class="fill-current size-6"}}
+    </a>
+  {{/if}}
+  <!-- add more icons
+    <a class="k--link k--link-accent">
+        {{> "icons/youtube" icon_class="fill-current size-6"}}
+    </a>
+    <a class="k--link k--link-success">
+        {{> "icons/instagram" icon_class="fill-current size-6"}}
+    </a>
+  -->
+</div>

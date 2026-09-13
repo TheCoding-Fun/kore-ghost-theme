@@ -1,0 +1,1151 @@
+/* Table of contents
+/* ------------------------------------------------------------
+
+This is a development CSS file which is built to a minified
+production stylesheet in assets/built/index.css
+
+1. Variables
+2. Fonts
+3. Globals
+4. Custom
+5. Layout
+6. Featured posts
+7. Container
+8. Sidebar & TOC
+9. Post / Page
+  9.1. Article
+  9.2. Page template
+  9.3. Page without header
+10. Content
+11. Cards
+12. Comments
+13. Recent posts
+
+Docs:
+https://tailwindcss.com/docs/theme
+https://daisyui.com/docs/config
+
+---------------------------------------------------------- */
+
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: all;
+  prefix: "k--";
+}
+
+/* Custom themes
+/* ------------------------------------------------------------
+
+Create your own here:
+https://daisyui.com/theme-generator/
+
+---------------------------------------------------------- */
+
+@plugin "daisyui/theme" {
+  name: "denim";
+  default: false;
+  prefersdark: false;
+  color-scheme: "dark";
+  --color-base-100: oklch(29% 0.066 243.157);
+  --color-base-200: oklch(39% 0.09 240.876);
+  --color-base-300: oklch(44% 0.11 240.79);
+  --color-base-content: oklch(95% 0.026 236.824);
+  --color-primary: oklch(82% 0.119 306.383);
+  --color-primary-content: oklch(29% 0.149 302.717);
+  --color-secondary: oklch(78% 0.115 274.713);
+  --color-secondary-content: oklch(25% 0.09 281.288);
+  --color-accent: oklch(87% 0.15 154.449);
+  --color-accent-content: oklch(26% 0.065 152.934);
+  --color-neutral: oklch(14% 0.005 285.823);
+  --color-neutral-content: oklch(92% 0.004 286.32);
+  --color-info: oklch(74% 0.16 232.661);
+  --color-info-content: oklch(29% 0.066 243.157);
+  --color-success: oklch(79% 0.209 151.711);
+  --color-success-content: oklch(26% 0.065 152.934);
+  --color-warning: oklch(85% 0.199 91.936);
+  --color-warning-content: oklch(28% 0.066 53.813);
+  --color-error: oklch(71% 0.194 13.428);
+  --color-error-content: oklch(27% 0.105 12.094);
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 1;
+}
+
+/* 1. Variables
+/* ---------------------------------------------------------- */
+
+@theme {
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-border: color-mix(
+    in oklab,
+    var(--color-base-content) 15%,
+    transparent
+  );
+
+  --font-sans:
+    Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  --font-mono:
+    "JetBrains Mono", Menlo, Consolas, Monaco, "Liberation Mono",
+    "Lucida Console", monospace;
+  --container-gap: clamp(
+    24px,
+    calc(1.7032rem + 1.9355vw * var(--size-factor)),
+    48px
+  );
+  --grid-gap: 38px;
+
+  --size-factor: 0.625;
+  --logo-height: 40px;
+  --container-width: 1320px;
+  --content-font-size: 1.06rem;
+
+  --content-small: 720px;
+  --content-medium: 960px;
+  --content-large: 1200px;
+  --content-xlarge: 1320px;
+  /* more variables in the header of default.hbs template  */
+
+  --gradient-link: linear-gradient(
+    90deg,
+    var(--color-base-content),
+    var(--ghost-accent-color)
+  );
+  --gradient-card: linear-gradient(
+    45deg,
+    var(--color-primary),
+    var(--color-secondary),
+    var(--color-base-content)
+  );
+  --gradient-header: linear-gradient(
+    0deg,
+    var(--color-base-100) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+@layer base {
+  h1 {
+    font-size: var(--text-5xl);
+  }
+  h2 {
+    font-size: var(--text-4xl);
+  }
+  h3 {
+    font-size: var(--text-3xl);
+  }
+  h4 {
+    font-size: var(--text-2xl);
+  }
+  h5 {
+    font-size: var(--text-xl);
+  }
+
+  body {
+    /* overwrite DaisyUI accent color */
+    /* --color-accent-content defined in .has-[light/dark]-text */
+    --color-accent: var(--ghost-accent-color);
+  }
+
+  /* For auto theme detection in comments */
+  /* light themes */
+  [data-theme="default"],
+  [data-theme="light"],
+  [data-theme="cupcake"],
+  [data-theme="bumblebee"],
+  [data-theme="emerald"],
+  [data-theme="corporate"],
+  [data-theme="retro"],
+  [data-theme="cyberpunk"],
+  [data-theme="valentine"],
+  [data-theme="garden"],
+  [data-theme="lofi"],
+  [data-theme="pastel"],
+  [data-theme="fantasy"],
+  [data-theme="wireframe"],
+  [data-theme="cmyk"],
+  [data-theme="autumn"],
+  [data-theme="acid"],
+  [data-theme="lemonade"],
+  [data-theme="winter"],
+  [data-theme="nord"],
+  [data-theme="caramellatte"],
+  [data-theme="silk"] {
+    --color-comments-text: var(--color-black);
+    --color-card-bg: var(--color-base-100);
+    --display-light-logo: block;
+    --display-dark-logo: none;
+  }
+
+  /* dark themes */
+  [data-theme="dark"],
+  [data-theme="synthwave"],
+  [data-theme="halloween"],
+  [data-theme="forest"],
+  [data-theme="aqua"],
+  [data-theme="black"],
+  [data-theme="luxury"],
+  [data-theme="dracula"],
+  [data-theme="business"],
+  [data-theme="night"],
+  [data-theme="coffee"],
+  [data-theme="dim"],
+  [data-theme="sunset"],
+  [data-theme="abyss"],
+  [data-theme="denim"] {
+    --color-comments-text: var(--color-white);
+    --color-card-bg: var(--color-base-200);
+    --display-light-logo: none;
+    --display-dark-logo: block;
+  }
+}
+
+/* 2. Fonts
+/* Fonts are preloaded and defined in default.hbs to avoid layout shift */
+
+/* 3. Globals
+/* ---------------------------------------------------------- */
+
+html {
+  /* Ghost hack to keep portal pages transparent with dark-schemed themes */
+  color-scheme: light !important;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: var(--gh-font-body, var(--font-sans));
+  font-size: calc(1.6rem * var(--size-factor));
+  background-color: var(--color-base-100);
+  color: var(--color-base-content);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--gh-font-heading, var(--font-sans));
+}
+
+/* 4. Custom
+/* ---------------------------------------------------------- */
+
+.gh-reading-progress {
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+  height: 5px; /* Progress bar height */
+  background: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.gh-reading-progress::-webkit-progress-bar {
+  background-color: transparent;
+}
+
+.gh-reading-progress::-webkit-progress-value {
+  background: var(--color-primary);
+}
+
+.gh-header-gradient {
+  background: var(--gradient-header);
+}
+
+.gh-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+  outline: none;
+}
+
+.gh-icon-button:hover :is(svg, span) {
+  opacity: 0.8;
+}
+
+.gh-icon-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.gh-light-logo {
+  display: var(--display-light-logo);
+}
+
+.gh-dark-logo {
+  display: var(--display-dark-logo);
+}
+
+/* JavaScript hue detection: text color, don't change */
+.has-light-text {
+  --color-accent-content: var(--color-white);
+}
+.has-dark-text {
+  --color-accent-content: var(--color-black);
+}
+
+.gh-gradient-underline > a {
+  position: relative;
+}
+
+.gh-gradient-underline > a:after {
+  content: "";
+  width: 0;
+  height: 1px;
+  background: var(--gradient-link);
+  border-radius: 4px;
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  opacity: 1;
+  transition: width 0.25s;
+}
+
+.gh-gradient-underline:hover > a:after {
+  width: 100%;
+}
+
+.gh-dropdown > .gh-gradient-underline:hover {
+  background-color: var(--color-base-200);
+}
+
+.gh-dropdown > .gh-gradient-underline:hover > a:after {
+  width: 0px;
+}
+
+/* Subscribe form controls
+/* ---------------------------------------------------------- */
+
+.gh-form {
+  color: var(--color-base-content);
+}
+.gh-form.success {
+  pointer-events: none;
+}
+.gh-form.error {
+  box-shadow: 0 0 0 2px var(--color-error);
+}
+.gh-form > svg {
+  position: relative;
+  left: 22px;
+  width: 20px;
+  height: 20px;
+  @apply text-base-content/60;
+}
+.gh-form .k--btn svg:not(.in-header) {
+  display: none;
+  position: absolute;
+  margin-top: 1px;
+}
+.gh-form:is(.loading, .success) .k--btn span {
+  visibility: hidden;
+}
+.gh-form.loading .k--btn svg:first-of-type {
+  display: block;
+}
+.gh-form.success .k--btn svg:last-of-type {
+  display: block;
+}
+.gh-form [data-members-error] {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 10px;
+  width: 100%;
+  font-size: calc(1.4rem * var(--size-factor));
+  line-height: 1.4;
+}
+
+@media (max-width: 576px) {
+  .gh-form {
+    font-size: calc(1.6rem * var(--size-factor));
+  }
+  .gh-form .k--btn span span {
+    display: none;
+  }
+  .gh-form .k--btn span svg {
+    display: inline;
+    position: static;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* 5. Layout
+/* ---------------------------------------------------------- */
+
+.gh-viewport {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.has-sticky-header .gh-navigation + main,
+.has-sticky-header .gh-navigation + section {
+  @apply max-md:mt-16 md:mt-25;
+}
+
+.gh-outer {
+  padding: 0 max(4vmin, 20px);
+}
+
+.gh-outer .gh-outer {
+  padding: 0;
+}
+
+.gh-inner {
+  margin: 0 auto;
+  max-width: var(--container-width);
+  width: 100%;
+}
+
+.gh-main {
+  flex-grow: 1;
+}
+
+.gh-canvas,
+.kg-width-full.kg-content-wide {
+  --main: min(var(--content-width, 720px), 100% - var(--container-gap) * 2);
+  --wide: minmax(
+    0,
+    calc((var(--container-width, 1200px) - var(--content-width, 720px)) / 2)
+  );
+  --full: minmax(var(--container-gap), 1fr);
+
+  display: grid;
+  grid-template-columns:
+    [full-start] var(--full)
+    [wide-start] var(--wide)
+    [main-start] var(--main) [main-end]
+    var(--wide) [wide-end]
+    var(--full) [full-end];
+}
+
+.gh-canvas > * {
+  grid-column: main;
+}
+
+.kg-width-wide,
+.kg-content-wide > div {
+  grid-column: wide;
+}
+
+.kg-width-full {
+  grid-column: full;
+}
+
+/* 6. Featured posts
+/* ---------------------------------------------------------- */
+
+.gh-featured {
+  padding-top: 64px;
+}
+
+.gh-featured-inner {
+  overflow: hidden;
+}
+
+.gh-featured-title {
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  font-size: calc(1.2rem * var(--size-factor));
+  font-weight: 550;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* 7. Container
+/* ---------------------------------------------------------- */
+
+.gh-container {
+  flex-grow: 1;
+  margin-top: 64px;
+}
+
+:is(.gh-featured, .gh-cta) + .gh-container {
+  margin-top: max(4vw, 40px);
+}
+
+/* TODO: check this */
+.gh-navigation + .gh-container .gh-container-title,
+:is(.paged, .tag-template, .author-template) .gh-container-title {
+  display: none;
+}
+
+.gh-more {
+  display: none;
+  grid-column: 1 / -1;
+  margin-top: 48px;
+  font-size: calc(1.9rem * var(--size-factor, 1));
+  font-weight: 725;
+  letter-spacing: -0.014em;
+}
+
+.home-template .gh-feed:has(> :nth-child(12):last-child) ~ .gh-more {
+  display: block;
+}
+
+.gh-more a {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.gh-more svg {
+  margin-top: -1px;
+  width: 18px;
+  height: 18px;
+}
+
+.gh-container-title {
+  grid-column: 1 / -1;
+  margin-bottom: calc(var(--grid-gap) / 2);
+  padding-bottom: 12px;
+  font-size: calc(1.2rem * var(--size-factor));
+  font-weight: 550;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* 8. Sidebar & TOC
+/* ---------------------------------------------------------- */
+
+.gh-canvas-sidebar {
+  position: relative;
+  grid-template-columns:
+    [full-start] minmax(2vw, auto)
+    [wide-start] minmax(auto, 300px)
+    [main-start] min(var(--content-width), calc(var(--container-width) - 200px))
+    [main-end] minmax(auto, 100px)
+    [wide-end] minmax(2vw, auto)
+    [full-end];
+  display: grid;
+}
+
+.gh-sidebar {
+  grid-column: wide-start / main-start;
+  grid-row-start: 1;
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 30px 0 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+.gh-toc-container {
+  position: sticky;
+  top: var(--sidebar-top-margin);
+  background-color: var(--color-base-200);
+  border-radius: var(--radius-field);
+  @apply p-2;
+  @apply shadow-md;
+}
+
+@media (max-width: 1400px) {
+  .gh-canvas-sidebar {
+    grid-template-columns:
+      [full-start] minmax(var(--container-gap), 1fr)
+      [wide-start] minmax(auto, 300px)
+      [main-start] min(var(--content-width), 100% - var(--container-gap) * 2)
+      [main-end] minmax(auto, 300px)
+      [wide-end] minmax(var(--container-gap), 1fr)
+      [full-end];
+  }
+  .gh-sidebar {
+    grid-column: main-start / main-end;
+    margin: 0 0 32px !important;
+    padding: 0;
+    position: static;
+  }
+}
+
+.gh-content .toc-list a {
+  text-decoration: none;
+}
+.gh-toc > .toc-list {
+  overflow: hidden;
+  list-style: none;
+  position: relative;
+  padding-left: 10px;
+}
+.gh-toc .is-active-link::before {
+  background-color: var(
+    --ghost-accent-color
+  ); /* Defines TOC accent color based on Accent color set in Ghost Admin */
+}
+
+/* 9. Post / Page
+/* ---------------------------------------------------------- */
+
+/* 9.1. Article */
+
+.gh-article {
+  --container-width: 1120px;
+  word-break: break-word;
+}
+
+.gh-article-header {
+  margin: clamp(40px, 3.64vw + 25.45px, 72px) 0 40px;
+}
+
+.gh-article-tag {
+  margin-bottom: 12px;
+  font-size: calc(1.3rem * var(--size-factor));
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--ghost-accent-color);
+}
+
+.gh-article-title {
+  font-size: calc(
+    clamp(3.4rem, 1.36vw + 2.85rem, 4.6rem) * var(--size-factor, 1)
+  );
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.022em;
+}
+
+.gh-article-excerpt {
+  margin-top: clamp(12px, 0.45vw + 10.18px, 16px);
+  max-width: 720px;
+  font-size: calc(clamp(1.7rem, 0.23vw + 1.61rem, 1.9rem) * var(--size-factor));
+  line-height: 1.45;
+  letter-spacing: -0.018em;
+}
+
+.gh-article-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  margin-left: 6px;
+}
+
+.gh-article-author-image {
+  display: flex;
+  margin-right: 8px;
+}
+
+.gh-article-author-image a {
+  position: relative;
+  margin: 0 -8px;
+  width: 56px;
+  height: 56px;
+  overflow: hidden;
+  background-color: var(--color-base-300);
+  border-radius: 50%;
+  border: 3px solid var(--color-base-100);
+}
+
+.gh-article-author-image a:first-child {
+  z-index: 10;
+}
+
+.gh-article-author-image a:nth-child(2) {
+  z-index: 9;
+}
+
+.gh-article-author-image a:nth-child(3) {
+  z-index: 8;
+}
+
+.gh-article-author-image :is(img, svg) {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gh-article-meta-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gh-article-author-name {
+  font-size: calc(1.6rem * var(--size-factor));
+  font-weight: 650;
+  letter-spacing: -0.013em;
+}
+
+.gh-article-meta-content {
+  font-size: calc(1.35rem * var(--size-factor));
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.006em;
+  @apply text-base-content/60;
+}
+
+.gh-article-image {
+  grid-column: wide;
+  margin-top: 40px;
+}
+
+.gh-article-image img {
+  width: 100%;
+}
+
+/* 9.2. Page template */
+
+.page-template .gh-article-header {
+  margin-block: 72px 32px;
+}
+
+/* 9.3. Page without header */
+
+.page-template .gh-content:only-child > *:first-child:not(.kg-width-full) {
+  margin-top: 64px;
+}
+
+.page-template .gh-content > *:last-child:not(.kg-width-full) {
+  margin-bottom: 6vw;
+}
+
+/* 10. Content
+/* ---------------------------------------------------------- */
+
+/* Content refers to styling all page and post content that is
+created within the Ghost editor. The main content handles
+headings, text, images and lists. We deal with cards lower down. */
+
+.gh-content {
+  font-size: var(--content-font-size, calc(1.7rem * var(--size-factor)));
+  letter-spacing: -0.01em;
+  position: relative;
+}
+
+/* Default vertical spacing */
+.gh-content > * + * {
+  margin-top: calc(28px * var(--content-spacing-factor, 1));
+  margin-bottom: 0;
+}
+
+/* Remove space between full-width cards */
+.gh-content
+  > .kg-width-full
+  + .kg-width-full:not(.kg-width-full.kg-card-hascaption + .kg-width-full) {
+  margin-top: 0;
+}
+
+/* Add back a top margin to all headings,
+unless a heading is the very first element in the post content */
+.gh-content > [id]:not(:first-child) {
+  margin-top: calc(56px * var(--content-spacing-factor, 1));
+}
+
+/* Add a small margin between a heading and paragraph after it */
+.gh-content > [id] + p {
+  margin-top: calc(12px * var(--content-spacing-factor, 1));
+}
+
+/* A larger margin before/after dividers, blockquotes and embeds */
+.gh-content > :is(hr, blockquote, iframe) {
+  position: relative;
+  margin-top: calc(48px * var(--content-spacing-factor, 1)) !important;
+}
+
+.gh-content > :is(hr, blockquote, iframe) + * {
+  margin-top: calc(48px * var(--content-spacing-factor, 1)) !important;
+}
+
+/* Now the content typography styles */
+.gh-content h1 {
+  font-size: calc(2.2em * var(--factor, 1));
+  letter-spacing: -0.02em;
+}
+
+.gh-content h2 {
+  font-size: calc(1.6em * var(--factor, 1));
+  letter-spacing: -0.02em;
+}
+
+.gh-content h3 {
+  font-size: calc(1.3em * var(--factor, 1));
+  letter-spacing: -0.017em;
+}
+
+.gh-content a {
+  color: var(--ghost-accent-color);
+  text-decoration: underline;
+}
+
+.gh-content .kg-callout-card .kg-callout-text,
+.gh-content .kg-toggle-card .kg-toggle-content > :is(ul, ol, p) {
+  font-size: 0.95em;
+}
+
+.gh-content :is(ul, ol) {
+  padding-left: 28px;
+}
+
+.gh-content :is(li + li, li :is(ul, ol)) {
+  margin-top: 8px;
+}
+
+.gh-content ol ol li {
+  list-style-type: lower-alpha;
+}
+
+.gh-content ol ol ol li {
+  list-style-type: lower-roman;
+}
+
+.gh-content hr {
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-border);
+  border: 0;
+}
+
+.gh-content .gh-table {
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.gh-content .gh-table table {
+  width: 100%;
+  font-family: var(--font-sans);
+  font-size: calc(1.5rem * var(--size-factor));
+  white-space: nowrap;
+  vertical-align: top;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.gh-content .gh-table table th {
+  font-size: calc(1.2rem * var(--size-factor));
+  font-weight: 700;
+  color: var(--color-darkgrey);
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+}
+
+.gh-content .gh-table table :is(th, td),
+.gh-content .gh-table table td {
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.gh-content .gh-table table :is(th, td):first-child {
+  padding-left: 0;
+}
+
+.gh-content .gh-table table :is(th, td):last-child {
+  padding-right: 0;
+}
+
+.gh-content pre {
+  overflow: auto;
+  padding: 16px;
+  font-size: calc(1.5rem * var(--size-factor));
+  line-height: 1.5em;
+  background: var(--color-base-200);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+}
+
+.gh-content :not(pre) > code {
+  vertical-align: baseline;
+  padding: 0.15em 0.4em;
+  font-weight: 400;
+  font-size: 0.95em;
+  line-height: 1em;
+  background: var(--color-base-200);
+  border-radius: 0.25em;
+  font-family: var(--font-mono);
+}
+
+/* 11. Cards
+/* ---------------------------------------------------------- */
+
+/* Add extra margin before/after any cards, except for when immediately preceeded by a heading */
+
+.gh-content :not(.kg-card):not(table):not([id]) + :is(.kg-card, table) {
+  margin-top: calc(48px * var(--content-spacing-factor, 1));
+}
+
+.gh-content :is(.kg-card, table) + :not(.kg-card):not(table):not([id]) {
+  margin-top: calc(48px * var(--content-spacing-factor, 1));
+}
+
+.gh-content :not(.kg-card):not([id]) + .kg-card.kg-width-full {
+  margin-top: calc(68px * var(--content-spacing-factor, 1));
+}
+
+.gh-content .kg-card.kg-width-full + :not(.kg-card):not([id]) {
+  margin-top: calc(68px * var(--content-spacing-factor, 1));
+}
+
+.kg-card {
+  border-radius: var(--radius-field);
+}
+
+/* Image */
+
+.kg-image {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Embed */
+
+.kg-embed-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Gallery */
+
+.kg-image[width][height],
+.kg-gallery-image {
+  cursor: pointer;
+}
+
+.kg-image-card a:hover,
+.kg-gallery-image a:hover {
+  opacity: 1 !important;
+}
+
+/* Toggle */
+
+.kg-card.kg-toggle-card .kg-toggle-heading-text {
+  font-size: calc(2rem * var(--size-factor));
+  font-weight: 700;
+}
+
+/* Callout */
+
+.kg-callout-card.kg-card {
+  border-radius: 0.25em;
+}
+
+.kg-callout-card-accent a {
+  text-decoration: underline;
+}
+
+.kg-callout-card-grey,
+.kg-cta-bg-grey {
+  background-color: var(--color-neutral-content) !important;
+  color: var(--color-neutral) !important;
+}
+
+.kg-callout-card-white,
+.kg-cta-bg-white {
+  background-color: color-mix(
+    in srgb,
+    rgb(255 255 255) 94%,
+    var(--color-base-200) 6%
+  ) !important;
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, rgb(124 139 154) 18%, var(--color-base-200) 82%) !important;
+  color: var(--color-neutral) !important;
+}
+
+.kg-callout-card-blue,
+.kg-cta-bg-blue {
+  background-color: var(--color-info) !important;
+  color: var(--color-info-content) !important;
+}
+
+.kg-callout-card-green,
+.kg-cta-bg-green {
+  background-color: var(--color-success) !important;
+  color: var(--color-success-content) !important;
+}
+
+.kg-callout-card-yellow,
+.kg-cta-bg-yellow {
+  background-color: var(--color-warning) !important;
+  color: var(--color-warning-content) !important;
+}
+
+.kg-callout-card-red,
+.kg-cta-bg-red {
+  background-color: var(--color-error) !important;
+  color: var(--color-error-content) !important;
+}
+
+.kg-callout-card-pink,
+.kg-cta-bg-pink {
+  background-color: color-mix(
+    in srgb,
+    var(--color-error) 35%,
+    rgb(255 162 212) 65%
+  ) !important;
+  color: color-mix(
+    in srgb,
+    var(--color-error-content) 80%,
+    rgb(255 162 212) 20%
+  ) !important;
+}
+
+.kg-callout-card-purple,
+.kg-cta-bg-purple {
+  background-color: color-mix(
+    in srgb,
+    var(--color-error) 35%,
+    rgb(170 135 255) 65%
+  ) !important;
+  color: color-mix(
+    in srgb,
+    var(--color-error-content) 80%,
+    rgb(170 135 255) 20%
+  ) !important;
+}
+
+/* Blockquote */
+
+blockquote:not([class]) {
+  padding-left: calc(2rem * var(--size-factor));
+  border-left: 4px solid var(--ghost-accent-color);
+}
+
+blockquote.kg-blockquote-alt {
+  font-style: normal;
+  font-weight: 400;
+  @apply text-base-content/60;
+}
+
+/* Button */
+
+.kg-card.kg-button-card .kg-btn {
+  height: unset;
+  padding: 0.6em 1.2em;
+  text-align: center;
+  font-size: 1em;
+  line-height: 1.2em;
+}
+
+/* Bookmark */
+
+.kg-bookmark-card .kg-bookmark-container {
+  border-radius: 0.25em !important;
+}
+
+.kg-bookmark-card .kg-bookmark-container:hover {
+  opacity: 1;
+}
+
+.kg-bookmark-card a.kg-bookmark-container,
+.kg-bookmark-card a.kg-bookmark-container:hover {
+  background: var(--color-base-100) !important;
+  color: var(--color-base-content) !important;
+}
+
+.kg-bookmark-card .kg-bookmark-content {
+  padding: 1.15em;
+}
+
+.kg-bookmark-card .kg-bookmark-title {
+  font-size: 0.9em;
+}
+
+.kg-bookmark-card .kg-bookmark-description {
+  max-height: none;
+  margin-top: 0.3em;
+  font-size: 0.8em;
+}
+
+.kg-bookmark-card .kg-bookmark-metadata {
+  font-size: 0.8em;
+}
+
+.kg-bookmark-card .kg-bookmark-thumbnail img {
+  border-radius: 0 0.2em 0.2em 0;
+}
+
+/* Product */
+
+.kg-product-card.kg-card .kg-product-card-image {
+  margin-bottom: 12px;
+}
+
+.kg-product-card.kg-card a.kg-product-card-button {
+  height: 2.8em;
+  margin-top: 12px;
+}
+
+/* File */
+
+.kg-file-card.kg-card .kg-file-card-container {
+  padding: 0.6em;
+}
+
+.kg-file-card.kg-card .kg-file-card-contents {
+  margin: 4px 8px 6px;
+}
+
+.kg-file-card.kg-card .kg-file-card-metadata {
+  font-size: 0.9em;
+}
+
+.kg-file-card.kg-card .kg-file-card-filesize::before {
+  margin-right: 6px;
+  margin-left: 6px;
+}
+
+/* Caption */
+
+figcaption {
+  margin-top: 12px;
+  font-size: calc(1.4rem * var(--size-factor));
+  text-align: center;
+}
+
+.kg-card.kg-width-full figcaption {
+  padding: 0 16px;
+}
+
+figcaption a {
+  color: var(--ghost-accent-color);
+  text-decoration: underline;
+}
+
+/* 12. Comments
+/* ---------------------------------------------------------- */
+
+.gh-comments {
+  margin-top: 48px;
+  color: var(--color-comments-text);
+}
+
+/* 13. Recent posts
+/* ---------------------------------------------------------- */
+
+.post-template .gh-container {
+  margin-top: 120px;
+}
+
+.post-template .gh-container-inner {
+  display: block;
+}
+
+.post-template .gh-container .gh-container-title {
+  display: block;
+}

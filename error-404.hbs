@@ -1,0 +1,29 @@
+{{!< default}}
+
+{{!--
+
+The 404 error is the most common error that a visitor might see, for example when
+following a broken link
+
+Keep this template as lightweight as you can!
+
+--}}
+
+<main class="gh-main gh-outer w-full">
+    <div class="gh-inner grid md:grid-cols-12 gap-x-5">
+        <section class="text-center pt-40 mb-10 lg:col-span-9 md:col-span-8">
+            <h1 class="text-8xl font-bold">{{statusCode}}</h1>
+            <p class="text-xl mt-5">{{message}}</p>
+            <a class="k--btn k--btn-primary error-link mt-20 mb-10" href="{{@site.url}}">{{t "Go to the front page →"}}</a>
+        </section>
+        <aside class="self-start sticky top-0 lg:col-span-3 md:col-span-4 md:pt-0">
+            {{#get "posts" include="authors" limit="2" as |more_posts|}}
+                {{#if more_posts}}
+                    {{#foreach more_posts}}
+                        {{> "post-card" extraCss="mb-4" }}
+                    {{/foreach}}
+                {{/if}}
+            {{/get}}
+        </aside>
+    </div>
+</main>

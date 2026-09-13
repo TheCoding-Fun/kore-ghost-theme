@@ -1,0 +1,56 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file into the body of the default.hbs template --}}
+
+{{#post}}
+
+<main class="gh-main w-full">
+    <article class="{{post_class}}">
+
+      {{#match @page.show_title_and_feature_image}}
+        {{> "components/feature-header" title=title description=custom_excerpt}}
+      {{/match}}
+
+      <div class="gh-outer w-full -mt-40">
+        <div class="gh-inner w-full grid grid-cols-12 gap-x-7 gap-y-7">
+          {{#get 'tags' include='count.posts'}}
+            {{#foreach tags}}
+
+              {{#if count.posts}}
+                <div class="k--card k--card-lg k--card-border border-(--color-base-300) bg-(--color-card-bg) w-full xl:col-span-3 lg:col-span-4 md:col-span-6 sm:col-span-12">
+                  <figure class="transition-all hover:scale-102 px-5 pt-5">
+                    <a href="{{url}}">
+                      <img
+                        src="{{img_url feature_image size="m"}}"
+                        class="rounded-box w-full border border-(--color-base-300)"
+                        loading="lazy"
+                        alt="" />
+                    </a>
+                  </figure>
+                  <div class="k--card-body px-5 py-5">
+                    <h2 class="k--card-title gh-gradient-underline">
+                      <div class="k--badge bg-(--tag-color) k--badge-xs" style="--tag-color: {{accent_color}}"></div>
+                      <a href="{{url}}">
+                        {{name}}
+                      </a>
+                    </h2>
+                    <p class="line-clamp-3">{{description}}</p>
+                    <div class="k--card-actions justify-end">
+                      {{plural count.posts empty=(t "No posts") singular=(t "1 post") plural=(t "% posts")}}
+                    </div>
+                  </div>
+                </div>
+              {{/if}}
+
+              {{else}}
+                <h2 class="col-span-12 text-center">
+                  {{t "No tags found :("}}
+                </h2>
+            {{/foreach}}
+          {{/get}}
+        </div>
+      </div>
+
+    </article>
+</main>
+
+{{/post}}

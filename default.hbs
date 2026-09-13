@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="{{@site.locale}}" data-theme="default">
+<head>
+    {{!-- Basic meta - advanced meta is output with {{ghost_head}} below --}}
+    <title>{{meta_title}}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {{!-- Preload main styles and scripts for better performance --}}
+    <link rel="preload" as="style" href="{{asset "built/content.css"}}">
+    <link rel="preload" as="script" href="{{asset "built/source.js"}}">
+    <style>
+        html {
+            --header-bg: var({{#match @custom.navigation_background "bg-base-100"}}--color-base-100{{else match @custom.navigation_background "bg-base-200"}}--color-base-200{{else}}--color-base-300{{/match}});
+            --content-width: var({{#match @custom.post_content_width "720px"}}--content-small{{else match @custom.post_content_width "960px"}}--content-medium{{else match @custom.post_content_width "1200px"}}--content-large{{else match @custom.post_content_width "1320px"}}--content-xlarge{{else}}--content-small{{/match}});
+            --sidebar-top-margin: {{#if @custom.sticky_navigation}}85px{{else}}45px{{/if}};
+        }
+    </style>
+
+    {{!-- Fonts are preloaded and defined in the default template to avoid layout shift --}}
+    {{> "typography/fonts"}}
+
+    {{!-- Theme assets - use the {{asset}} helper to reference styles & scripts, this will take care of caching and cache-busting automatically --}}
+    <link rel="stylesheet" type="text/css" href="{{asset "built/content.css"}}">
+
+    {{!-- Scripts - handle responsive videos, infinite scroll, and navigation dropdowns --}}
+    <script src="{{asset "built/source.js"}}"></script>
+
+    {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings, it should always be the last tag before the closing head tag --}}
+    {{ghost_head}}
+</head>
+
+<body class="{{body_class}}">
+    {{#is "post"}}
+        {{#if @custom.show_read_progress}}
+            <progress class="gh-reading-progress" value="0" max="100" aria-label="Reading progress"></progress>
+        {{/if}}
+    {{/is}}
+
+    <div class="gh-viewport {{#if @custom.sticky_navigation}}has-sticky-header{{/if}}">
+
+        {{> "components/header" navigationLayout=@custom.navigation_layout}}
+
+        {{{body}}}
+
+        {{> "components/footer"}}
+
+    </div>
+
+{{#is "post, page"}}
+    {{> "lightbox"}}
+{{/is}}
+
+{{!-- Ghost outputs required functional scripts with this tag, it should always be the last thing before the closing body tag --}}
+{{ghost_foot}}
+
+</body>
+</html>

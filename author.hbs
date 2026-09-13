@@ -1,0 +1,91 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file into the body of the default.hbs template --}}
+
+<main class="gh-main w-full">
+    {{#author}}
+        <header
+            class="gh-hero k--hero min-h-125"
+            style="{{#if cover_image}}background-image: url({{cover_image}});{{/if}}"
+        >
+            {{#if cover_image}}
+                <div class="k--hero-overlay"></div>
+                <div class="w-full h-full gh-header-gradient"></div>
+            {{/if}}
+            <div class="k--hero-content self-start pt-20 text-center">
+                <div class="max-w-180">
+                    {{#if profile_image}}
+                        <img class="size-40 border-5 border-(--color-base-300) rounded-full mx-auto mb-10" src="{{img_url profile_image size="s"}}" alt="{{name}}">
+                    {{/if}}
+                    <h2 class="text-5xl font-bold">{{name}}</h2>
+                    {{#if bio}}
+                        <p class="py-6 pb-10">
+                            {{bio}}
+                        </p>
+                    {{/if}}
+                    <div class="mx-auto mb-10 grid grid-flow-col gap-4">
+                        {{#if location}}
+                            <div class="flex items-center gap-1">
+                                {{> "icons/pin" icon_class="fill-current inline-block size-6"}}
+                                {{location}}
+                            </div>
+                        {{/if}}
+                        {{#if website}}
+                            <a class="k--link k--tooltip" href="{{website}}" data-tip="{{website}}" target="_blank" rel="noopener">
+                                {{> "icons/link" icon_class="fill-current size-6"}}
+                            </a>
+                        {{/if}}
+                        {{#if facebook}}
+                            <a class="k--link" href="{{social_url type="facebook"}}" target="_blank" rel="noopener">
+                                {{> "icons/facebook" icon_class="fill-current size-6"}}
+                            </a>
+                        {{/if}}
+                        {{#if twitter}}
+                            <a class="k--link" href="{{social_url type="twitter"}}" target="_blank" rel="noopener">
+                                {{> "icons/twitter" icon_class="fill-current size-6"}}
+                            </a>
+                        {{/if}}
+                        {{#if linkedin}}
+                        <a class="k--link" href="{{social_url type="linkedin"}}" target="_blank" rel="noopener">
+                            {{> "icons/linkedin" icon_class="fill-current size-6"}}
+                        </a>
+                        {{/if}}
+                        {{#if bluesky}}
+                            <a class="k--link" href="{{social_url type="bluesky"}}" target="_blank" rel="noopener">
+                                {{> "icons/bluesky" icon_class="fill-current size-6"}}
+                            </a>
+                        {{/if}}
+                        {{#if threads}}
+                            <a class="k--link" href="{{social_url type="threads"}}" target="_blank" rel="noopener">
+                                {{> "icons/threads" icon_class="fill-current size-6"}}
+                            </a>
+                        {{/if}}
+                        {{#if mastodon}}
+                            <a class="k--link" href="{{social_url type="mastodon"}}" target="_blank" rel="noopener">
+                                {{> "icons/mastodon" icon_class="fill-current size-6"}}
+                            </a>
+                        {{/if}}
+                        {{#if tiktok}}
+                            <a class="k--link" href="{{social_url type="tiktok"}}" target="_blank" rel="noopener">
+                                {{> "icons/tiktok" icon_class="fill-current size-6"}}
+                            </a>
+                        {{/if}}
+                        {{#if youtube}}
+                            <a class="k--link" href="{{social_url type="youtube"}}" target="_blank" rel="noopener">
+                                {{> "icons/youtube" icon_class="fill-current size-6"}}
+                            </a>
+                        {{/if}}
+                        {{#if instagram}}
+                            <a class="k--link" href="{{social_url type="instagram"}}" target="_blank" rel="noopener">
+                                {{> "icons/instagram" icon_class="fill-current size-6"}}
+                            </a>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </header>
+    {{/author}}
+
+    <div class="gh-outer w-full">
+        {{> "components/post-list" feed="archive" postFeedStyle=@custom.post_feed_style showTitle=false}}
+    </div>
+</main>

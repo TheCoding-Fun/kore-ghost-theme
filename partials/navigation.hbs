@@ -1,0 +1,24 @@
+{{#if isSecondary}}
+    {{#foreach navigation}}
+        <a class="k--link k--link-hover" href="{{url}}">
+            {{label}}
+        </a>
+    {{/foreach}}
+{{else}}
+    {{#match variant "links"}}
+        {{#foreach navigation}}
+            <a class="k--link k--link-hover" href="{{url}}">
+                {{label}}
+            </a>
+        {{/foreach}}
+    {{/match}}
+    {{#match variant "!=" "links"}}
+        <ul class="nav" role="menu">
+            {{#foreach navigation}}
+                <li class="gh-gradient-underline {{link_class for=(url) class=(concat "nav-" slug)}}" role="menuitem">
+                    <a href="{{url absolute="true"}}">{{label}}</a>
+                </li>
+            {{/foreach}}
+        </ul>
+    {{/match}}
+{{/if}}
